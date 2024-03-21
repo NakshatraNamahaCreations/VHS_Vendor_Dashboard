@@ -75,7 +75,7 @@ function Login() {
                   textAlign: "center",
                 }}
               >
-                Super Admin
+               Vendor Dashboard
               </h1>
               <Card
                 style={{
