@@ -17,6 +17,7 @@ import OfferAnnouncement from "./components/OfferAnnouncement";
 import Report from "./components/Report"
 import ReportList from "./components/ReportList";
 import Enquiry from "./components/Enquiry";
+import WhatsappAndPhone from "./components/WhatsappAndPhone";
 
 
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/report" element={<Report />} />
         <Route path="/offerAnnouncement" element={<OfferAnnouncement />} />
         <Route path="/enquiry" element={<Enquiry />} />
+        <Route path="/whatsappandphonenumber" element={<WhatsappAndPhone />} />
 
       </Routes>
 

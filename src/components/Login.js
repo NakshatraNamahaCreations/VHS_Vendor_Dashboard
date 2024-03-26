@@ -75,7 +75,7 @@ function Login() {
                   textAlign: "center",
                 }}
               >
-               Vendor Dashboard
+            Vendor Dashboard
               </h1>
               <Card
                 style={{

@@ -89,7 +89,10 @@ function Sidenav() {
            Enquiry
             <Link to="/enquiry" />
           </MenuItem>
-        
+          <MenuItem>
+           Help Numbers
+            <Link to="/whatsappandphonenumber" />
+          </MenuItem>
             <MenuItem>
               Vendors  <Link to="/vendor" />
             </MenuItem>
