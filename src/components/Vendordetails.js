@@ -81,6 +81,28 @@ function Vendordetails() {
     }
   };
 
+
+  const [penaltydata, setvendorPenaltydata] = useState([]);
+
+  useEffect(() => {
+    getpenality();
+  }, []);
+
+  const getpenality = async () => {
+    let res = await axios.get(`https://api.vijayhomeservicebengaluru.in/api/getvPenalty/${id}`);
+    if (res.status === 200) {
+      setvendorPenaltydata(res.data?.vPenalty);
+    }
+  };
+
+
+
+  const totalPenalty = penaltydata.reduce((total, item) => {
+    return total + parseInt(item?.vPenalty);
+  }, 0);
+
+
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
@@ -179,6 +201,18 @@ function Vendordetails() {
       ),
     },
     {
+      name: "DS",
+
+      cell: (row) => (
+
+
+        <div >
+          <img src={row?.dsImg} width={100} height={100} />
+        </div>
+
+      ),
+    },
+    {
       name: "Service Date",
       selector: (row) => row.serviceDate,
     },
@@ -187,24 +221,24 @@ function Vendordetails() {
 
   const exportData = () => {
     const fileName = "Vendor_Report.xlsx";
-  
+
     // Assuming each object in searchResults has properties like 'category' and 'img'
     const filteredData1 = filterdata?.map(item => ({
       CustomerName: item.serviceInfo[0]?.customerData[0]?.customerName,
       category: item?.category,
-     
+
       city: item?.serviceInfo[0]?.city,
       number: item?.serviceInfo[0]?.customerData[0]?.mainContact,
       desc: item?.serviceInfo[0]?.desc,
       amount: item?.serviceInfo[0]?.GrandTotal,
-      vendorCharge:item.vendorChargeAmount,
-      BD:item.serviceInfo[0]?.date,
-      SD:item.serviceDate,
+      vendorCharge: item.vendorChargeAmount,
+      BD: item.serviceInfo[0]?.date,
+      SD: item.serviceDate,
       service: item?.serviceInfo[0]?.service,
-      paymentmode:(item?.serviceInfo[0]?.paymentMode),
+      paymentmode: (item?.serviceInfo[0]?.paymentMode),
 
     }));
-  
+
     const worksheet = XLSX.utils.json_to_sheet(filteredData1);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Category Data");
@@ -279,6 +313,9 @@ function Vendordetails() {
                 </Button>
               </div>
             </div>
+            <div>
+              <h4>Penalty Charges= {totalPenalty} Rs</h4>
+            </div>
           </div>
         </div>
         <h5 className="mt-4">Services list</h5>
@@ -291,7 +328,7 @@ function Vendordetails() {
             backgroundColor: "#a9042e",
             borderRadius: "5px",
             width: "150px",
-            float:"right"
+            float: "right"
           }}
           onClick={exportData}
         >
