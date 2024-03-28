@@ -65,6 +65,7 @@ function Vendor() {
   const handleClick = (divNum) => () => {
     setSelected(divNum);
   };
+
   const addtechnician = async (e) => {
     e.preventDefault();
 
@@ -111,6 +112,7 @@ function Vendor() {
       }
     }
   };
+  
   useEffect(() => {
     gettechnician();
     getcity();

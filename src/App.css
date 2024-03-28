@@ -33,6 +33,13 @@
 .gr {
   border-bottom: 1px solid green;
 }
+.bln{
+  background: #00bcd4;
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 5px 15px 5px 15px;
+}
 .active1:active {
   width: fit-content;
   border-bottom: 2px solid red;

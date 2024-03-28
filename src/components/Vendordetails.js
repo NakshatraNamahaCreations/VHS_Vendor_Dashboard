@@ -313,8 +313,8 @@ function Vendordetails() {
                 </Button>
               </div>
             </div>
-            <div>
-              <h4>Penalty Charges= {totalPenalty} Rs</h4>
+            <div className="mt-3">
+              <h5> Total Penalty Charges= {totalPenalty} Rs</h5>
             </div>
           </div>
         </div>
@@ -353,6 +353,9 @@ function Vendordetails() {
             subHeaderAlign="left"
             highlightOnHover
           />
+
+<div style={{ fontWeight: "500" }}>Service Total-{filterdata?.reduce((total, selectedData) => total + parseFloat(selectedData?.serviceInfo[0]?.GrandTotal), 0)}</div>
+                                <div style={{ fontWeight: "500" }}>Vendor Total-{filterdata?.reduce((total, selectedData) => total + parseFloat(selectedData.vendorChargeAmount), 0).toFixed(1)}</div>
         </div>
 
         {/* <table className="table">
@@ -380,7 +383,7 @@ function Vendordetails() {
 
                 <tr>
                   <th scope="row">{index + 1}</th>
-                  <td> {i.serviceInfo[0]?.customerData[0]?.customerName} </td>
+                  <div> {i.serviceInfo[0]?.customerData[0]?.customerName} </td>
                   <td> {i.serviceInfo[0]?.customerData[0]?.email} </td>
                   <td>  {i.serviceInfo[0]?.city}</td>
                   <td> {i.serviceInfo[0]?.customerData[0]?.mainContact}  </td>

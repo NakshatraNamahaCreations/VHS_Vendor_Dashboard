@@ -20,6 +20,36 @@ function Enquiry() {
 
         }
     };
+
+    const update = async (i) => {
+
+
+
+        try {
+            const config = {
+                url: `/updateStatus/${i._id}`,
+                method: "put",
+                baseURL: "https://api.vijayhomesuperadmin.in/api",
+                // data: formdata,
+                headers: { "content-type": "application/json" },
+                data: {
+
+
+                },
+            };
+            await axios(config).then(function (response) {
+                if (response.status === 200) {
+                    console.log("success");
+                    alert(" updated");
+                    getenquiry();
+                }
+            });
+        } catch (error) {
+            console.error(error); // Log the error to the browser console
+            alert("An error occurred: " + error.message);
+        }
+
+    };
     return (
         <div div className="row">
             <div className="col-md-2">
@@ -39,6 +69,7 @@ function Enquiry() {
                                 <th>Email</th>
                                 <th>Number</th>
                                 <th>Comment</th>
+
                                 <th>Action</th>
 
                             </tr>
@@ -47,14 +78,21 @@ function Enquiry() {
                             {data?.map((i, index) => (
 
 
-                                <tr>
+                                <tr style={i.type === "updated" ? { backgroundColor: 'green' } : {}}>
                                     <td>{index + 1}</td>
                                     <td>{i.date}<br></br>  {i.Time}</td>
                                     <td>{i.name}</td>
                                     <td>{i.email}</td>
                                     <td>{i.mobile}</td>
                                     <td>{i.comment}</td>
-                                    <td><button>update</button></td>
+
+
+                                    <td>
+                                        <button className='bln' onClick={() => i.type !== "update" && update(i)}>
+                                            {i.type === "updated" ? "Resolved" : "Update"}
+                                        </button>
+                                    </td>
+
                                 </tr>
                             ))}
 

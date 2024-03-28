@@ -165,7 +165,7 @@ function Dashboard() {
       <div className="col-md-10 ">
         <Header />
       
-       
+       <h6>Dashboard</h6>
       </div>
     </div>
   );

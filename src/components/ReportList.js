@@ -186,8 +186,8 @@ function ReportList() {
             vendorCharge: item?.vendorChargeAmount,
             Technician: item?.TechorPMorVendorName,
             paymentmode: item.serviceInfo[0]?.paymentMode,
-            startTime: moment(item?.startJobTime).format('lll') ,
-            EndTime:moment( item?.endJobTime).format('lll')
+            startTime: moment(item?.startJobTime).format('lll'),
+            EndTime: moment(item?.endJobTime).format('lll')
 
         }));
 
@@ -325,8 +325,8 @@ function ReportList() {
                                 <th scope="col" className="table-head">
 
                                 </th>
-                                <th></th>
-                                <th></th>
+                                <th style={{ width: "15%" }}></th>
+                                <th style={{ width: "15%" }}></th>
                                 <th></th>
 
                                 <th></th>
@@ -373,6 +373,9 @@ function ReportList() {
                                 </th>
                                 <th  >
                                     Payment Proof
+                                </th>
+                                <th  >
+                                  DS
                                 </th>
                                 <th  >
                                     Job Amount
@@ -433,6 +436,12 @@ ${selectedData?.serviceInfo[0]?.deliveryAddress?.landmark}
                                         <td>   <div >
                                             <img src={`https://api.vijayhomeservicebengaluru.in/addcall/${selectedData?.pImg}`} width={100} height={100} />
                                         </div></td>
+                                        <td>
+                                            <div >
+                                                <img src={selectedData?.dsImg} width={100} height={100} />
+                                            </div>
+                                        </td>
+
                                         <td>{selectedData?.serviceInfo[0]?.GrandTotal}</td>
                                         <td>{parseFloat(selectedData.vendorChargeAmount).toFixed(1)}</td>
 
@@ -441,6 +450,58 @@ ${selectedData?.serviceInfo[0]?.deliveryAddress?.landmark}
                                         <td>{selectedData?.serviceInfo[0]?.desc}</td>
                                     </tr>
                                 ))}
+                        </tbody>
+                        <tbody>
+                            <tr >
+                                <th >
+
+                                </th>
+
+                                <th >
+
+                                </th>
+                                <th >
+
+                                </th>
+
+                                <th  >
+
+                                </th>
+                                <th  >
+
+                                </th>
+                                <th  >
+
+                                </th>
+                                <th style={{ width: "15%" }} >
+
+                                </th>
+
+
+                                <th  >
+
+                                </th>
+
+
+                                <th  >
+
+                                </th>
+                                <th  >
+
+                                </th>
+                                <th  >
+
+                                </th>
+                                <td style={{ fontWeight: "500" }}>T-{searchResults.reduce((total, selectedData) => total + parseFloat(selectedData?.serviceInfo[0]?.GrandTotal), 0)}</td>
+                                <td style={{ fontWeight: "500" }}>T-{searchResults.reduce((total, selectedData) => total + parseFloat(selectedData.vendorChargeAmount), 0).toFixed(1)}</td>
+                                <th  >
+
+                                </th>
+
+                                <th  >
+
+                                </th>
+                            </tr>
                         </tbody>
 
                     </Table>{" "}
