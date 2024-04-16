@@ -33,6 +33,12 @@
 .gr {
   border-bottom: 1px solid green;
 }
+.active {
+  background-color: #f0f0f0; /* Add your desired background color here */
+  color: #000; /* Add your desired text color here */
+
+}
+
 .bln{
   background: #00bcd4;
     color: white;

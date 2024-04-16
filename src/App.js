@@ -23,25 +23,34 @@ import WhatsappAndPhone from "./components/WhatsappAndPhone";
 
 function App() {
 
-
+  const admin = localStorage.getItem("admin");
+  console.log("admin", admin)
   return (
     <BrowserRouter>
-      <Routes>
+     
+ 
+        {admin ?
+          <Routes>
+            <Route path="/ServiceBooking" element={<ServiceBooking />} />
+            <Route path="/home" element={<Dashboard />} />
+            <Route path="/vendordetails/:id" element={<Vendordetails />} />
+            <Route path="/vendor" element={<Vendor />} />
+            <Route path="/Training" element={<Training />} />
+            <Route path="/VendorSetting" element={<VendorSetting />} />
+            <Route path="/reportlist/:date/:category" element={<ReportList />} />
 
-        <Route path="/ServiceBooking" element={<ServiceBooking />} />
-        <Route path="/home" element={<Dashboard />} />
-        <Route path="/vendordetails/:id" element={<Vendordetails />} />
-        <Route path="/vendor" element={<Vendor />} />
-        <Route path="/Training" element={<Training />} />
-        <Route path="/VendorSetting" element={<VendorSetting />} />
-        <Route path="/reportlist/:date/:category" element={<ReportList />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/report" element={<Report />} />
-        <Route path="/offerAnnouncement" element={<OfferAnnouncement />} />
-        <Route path="/enquiry" element={<Enquiry />} />
-        <Route path="/whatsappandphonenumber" element={<WhatsappAndPhone />} />
+            <Route path="/report" element={<Report />} />
+            <Route path="/offerAnnouncement" element={<OfferAnnouncement />} />
+            <Route path="/enquiry" element={<Enquiry />} />
+            <Route path="/whatsappandphonenumber" element={<WhatsappAndPhone />} />
+          </Routes> :
+          <Routes>
+            <Route path="/" element={<Login />} />
+          </Routes>
+        }
 
-      </Routes>
+
+      
 
     </BrowserRouter>
   );

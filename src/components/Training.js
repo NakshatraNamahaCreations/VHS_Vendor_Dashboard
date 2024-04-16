@@ -234,13 +234,6 @@ function Subcategory() {
       });
   };
 
-
-
-
-
-
-
-
   return (
     <div div className="row">
       <div className="col-md-2">

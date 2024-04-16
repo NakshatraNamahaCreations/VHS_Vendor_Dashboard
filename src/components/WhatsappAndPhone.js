@@ -4,7 +4,7 @@ import Sidenav from "./Sidenav";
 import Header from "./Header";
 import DataTable from "react-data-table-component";
 import Modal from "react-bootstrap/Modal";
-import { Form } from "react-bootstrap";
+
 
 function WhatsappAndPhone() {
   const [data1, setdata1] = useState([]);
@@ -15,13 +15,13 @@ function WhatsappAndPhone() {
   const [filterdata, setfilterData] = useState([]);
 
   const [numbersData, setNumbersData] = useState([]);
-
+  const [City, setCity] = useState("")
   const [editCategoryName, setEditCategoryName] = useState("");
   const [editWhatsAppNumber, setEditWhatsAppNumber] = useState("");
   const [editMobileNumber, setEditMobileNumber] = useState("");
 
   const [editNumberData, setEditNumberData] = useState({});
-
+  const [citydata, setcitydata] = useState([]);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -35,15 +35,25 @@ function WhatsappAndPhone() {
   useEffect(() => {
     getcategory();
     getAllNumbers();
+    getcity();
   }, []);
+
+
+  const getcity = async () => {
+    let res = await axios.get("https://api.vijayhomesuperadmin.in/api/master/getcity");
+    if ((res.status = 200)) {
+      setcitydata(res.data?.mastercity);
+    }
+  };
 
   const getcategory = async () => {
     let res = await axios.get("https://api.vijayhomesuperadmin.in/api/getcategory");
     if (res.status === 200) {
       setdata1(res.data?.category);
-      console.log(res.data?.category);
+
     }
   };
+  
   const addNumbers = async (e) => {
     e.preventDefault();
     try {
@@ -58,6 +68,7 @@ function WhatsappAndPhone() {
           numbersCategory: category,
           whatsappNumber: whatsAppNumber,
           phoneNumber: mobileNumber,
+          city: City
         },
       };
       await axios(config).then(function (response) {
@@ -89,7 +100,7 @@ function WhatsappAndPhone() {
       setfilterData(res.data?.numbersData);
     }
   };
- 
+
 
   const editNumbers = async (e) => {
     e.preventDefault();
@@ -143,6 +154,10 @@ function WhatsappAndPhone() {
       selector: (row) => row.numbersCategory,
     },
     {
+      name: "City ",
+      selector: (row) => row.city,
+    },
+    {
       name: "WhatsApp",
       selector: (row) => row.whatsappNumber,
     },
@@ -188,7 +203,7 @@ function WhatsappAndPhone() {
               <div className="card-body p-3">
                 <form>
                   <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-md-3">
                       <div className="vhs-input-label">
                         Category <span className="text-danger"> *</span>
                       </div>
@@ -205,7 +220,25 @@ function WhatsappAndPhone() {
                       </div>
                     </div>
 
-                    <div className="col-md-4">
+                    <div className="col-md-3">
+                      <div className="vhs-input-label">
+                        City <span className="text-danger"> *</span>
+                      </div>
+                      <div className="group pt-1">
+                        <select
+                          className="col-md-12 vhs-input-value"
+                          onChange={(e) => setCity(e.target.value)}
+                        >
+                          <option>---SELECT---</option>
+                          {citydata.map((i) => (
+                            <option value={i.city}>{i.city}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+
+                    <div className="col-md-3">
                       <div className="vhs-input-label">Whatsapp Number</div>
                       <div className="group pt-1">
                         <input
@@ -216,7 +249,7 @@ function WhatsappAndPhone() {
                       </div>
                     </div>
 
-                    <div className="col-md-4">
+                    <div className="col-md-3">
                       <div className="vhs-input-label">Mobile Number </div>
                       <div className="group pt-1">
                         <input

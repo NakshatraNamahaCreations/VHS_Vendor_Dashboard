@@ -52,11 +52,10 @@ function Vendor() {
   const [categorydata, setcategorydata] = useState([]);
   const [search, setsearch] = useState("");
   const [filterdata, setfilterdata] = useState([]);
+  const [Area, setArea] = useState("");
+  const [Pincode, setPincode] = useState("");
 
-  const apiURL = process.env.REACT_APP_API_URL;
-  const handleclick = () => {
-    setIsVisible(!isVisible);
-  };
+  const [Radius, setRadius] = useState([]);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -97,6 +96,9 @@ function Vendor() {
             experiance: experiance,
             languagesknow: language,
             city: city,
+            Radius: Radius,
+            Area: Area,
+            Pincode: Pincode,
           },
         };
         await axios(config).then(function (response) {
@@ -112,7 +114,7 @@ function Vendor() {
       }
     }
   };
-  
+
   useEffect(() => {
     gettechnician();
     getcity();
@@ -120,7 +122,9 @@ function Vendor() {
   }, []);
 
   const gettechnician = async () => {
-    let res = await axios.get("https://api.vijayhomesuperadmin.in/api/getalltechnician");
+    let res = await axios.get(
+      "https://api.vijayhomesuperadmin.in/api/getalltechnician"
+    );
     if ((res.status = 200)) {
       settechniciandata(
         res.data?.technician.filter((i) => i.Type === "outVendor")
@@ -130,13 +134,17 @@ function Vendor() {
   };
 
   const getcity = async () => {
-    let res = await axios.get("https://api.vijayhomesuperadmin.in/api/master/getcity");
+    let res = await axios.get(
+      "https://api.vijayhomesuperadmin.in/api/master/getcity"
+    );
     if ((res.status = 200)) {
       setcitydata(res.data?.mastercity);
     }
   };
   const getcategory = async () => {
-    let res = await axios.get("https://api.vijayhomesuperadmin.in/api/getcategory");
+    let res = await axios.get(
+      "https://api.vijayhomesuperadmin.in/api/getcategory"
+    );
     if ((res.status = 200)) {
       setcategorydata(res.data?.category);
     }
@@ -164,10 +172,7 @@ function Vendor() {
       name: "Sl  No",
       selector: (row, index) => index + 1,
     },
-    {
-      name: "Type",
-      selector: (row) => row.Type,
-    },
+
     {
       name: "VHS Name",
       selector: (row) => row.vhsname,
@@ -195,20 +200,25 @@ function Vendor() {
       ),
     },
     {
-      name: "Password",
-      selector: (row) => row.password,
+      name: "Area",
+      selector: (row) => row.Area,
     },
     {
-      name: "experiance",
-      selector: (row) => row.experiance,
+      name: "Pincode",
+      selector: (row) => row.Pincode,
     },
     {
       name: "Languages",
       selector: (row) => row.languagesknow,
     },
     {
-      name: "Wallet balance",
-      selector: (row) => row.vendorAmt,
+      name: "W.B",
+      selector: (row) => Number(row.vendorAmt).toFixed(2),
+    },
+
+    {
+      name: "Radius",
+      selector: (row) => row.Radius,
     },
     {
       name: "Action",
@@ -257,6 +267,8 @@ function Vendor() {
           experiance: experiance1,
           languagesknow: language1,
           city: city1,
+          Area: Area,
+          Pincode: Pincode,
         },
       };
       await axios(config).then(function (response) {
@@ -292,10 +304,7 @@ function Vendor() {
     const queryString = new URLSearchParams({
       rowData: JSON.stringify(row),
     }).toString();
-    const newTab = window.open(
-      `/vendordetails/${row._id}?${queryString}`,
-
-    );
+    const newTab = window.open(`/vendordetails/${row._id}?${queryString}`);
   };
   return (
     <div div className="row">
@@ -499,13 +508,48 @@ function Vendor() {
                             />
                           </div>
 
-                          <div className="col-md-4"></div>
+                          <div className="col-md-4">
+                            <div className="vhs-input-label">
+                              Radius <span className="text-danger"> *</span>
+                            </div>
+                            <div className="group pt-1">
+                              <input
+                                type="number"
+                                className="col-md-12 vhs-input-value"
+                                onChange={(e) => setRadius(e.target.value)}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="vhs-input-label">
+                              Area <span className="text-danger"> *</span>
+                            </div>
+                            <div className="group pt-1">
+                              <input
+                                type="text"
+                                className="col-md-12 vhs-input-value"
+                                onChange={(e) => setArea(e.target.value)}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="vhs-input-label">
+                              Pincode <span className="text-danger"> *</span>
+                            </div>
+                            <div className="group pt-1">
+                              <input
+                                type="number"
+                                className="col-md-12 vhs-input-value"
+                                onChange={(e) => setPincode(e.target.value)}
+                              />
+                            </div>
+                          </div>
                         </div>
 
                         <div className="row pt-2">
                           <div className="vhs-sub-heading">
                             Note: One Mobile Number Will Register Only Once For
-                            Technician
+                            Vendor
                           </div>
                         </div>
 
@@ -551,9 +595,7 @@ function Vendor() {
                         className="col-md-12 vhs-input-value"
                         onChange={(e) => setType1(e.target.value)}
                       >
-                        
                         <option value="outVendor">Vendor</option>
-                       
                       </select>
                     </div>
                   </div>

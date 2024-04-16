@@ -48,11 +48,7 @@ function Sidenav() {
     <div>
       <ProSidebar>
         <div className="row justify-content-center mt-2">
-          {/* <img
-            src="/images/vhs.png"
-            className="img-fluid"
-            style={{ width: "100px" }}
-          /> */}
+       
           <h6
             className="text-center pt-1"
             style={{ color: "black", fontWeight: "bold", fontSize: "21px" }}
@@ -65,22 +61,12 @@ function Sidenav() {
             Dashboard <Link to="/home" />
           </MenuItem>
 
-          <SubMenu title="Banners">
-            {/* <MenuItem>
-              First Slider <Link to="/banner" />
-            </MenuItem> */}
-          
+          <SubMenu title="Banners"> 
             <MenuItem>
               offerAnnouncement
               <Link to="/offerAnnouncement" />
             </MenuItem>
           </SubMenu>
-
-         
-        
-        
-       
-
           <MenuItem>
             Services Booking
             <Link to="/ServiceBooking" />
@@ -106,9 +92,7 @@ function Sidenav() {
             <MenuItem>
               Reports  <Link to="/report" />
             </MenuItem>
-          {/* <MenuItem>
-            Settings <Link to="/settings" />{" "}
-          </MenuItem> */}
+      
           <MenuItem>
             <a onClick={handleShow}> Logout </a>
           </MenuItem>
@@ -135,3 +119,95 @@ function Sidenav() {
 }
 
 export default Sidenav;
+
+// import React, { useEffect, useState } from "react";
+// import { NavLink } from "react-router-dom";
+
+// const Sidebar = ({ children }) => {
+//   const admin = JSON.parse(sessionStorage.getItem("admin"));
+//   const [isOpen, setIsOpen] = useState(
+//     JSON.parse(sessionStorage.getItem("sidebarOpen")) ?? true
+//   );
+
+//   useEffect(() => {
+//     sessionStorage.setItem("sidebarOpen", JSON.stringify(isOpen));
+//   }, [isOpen]);
+
+//   const toggle = () => setIsOpen(!isOpen);
+
+//   const menuItem = [
+//     {
+//       path: "/home",
+//       name: "Home",
+//     },
+//     {
+//       path: "/offerAnnouncement",
+//       name: "Banners",
+//     },
+//     {
+//       path: "/ServiceBooking",
+//       name: "Services Booking",
+//     },
+//     {
+//       path: "/enquiry",
+//       name: "Enquiry",
+//     },
+//     {
+//       path: "/whatsappandphonenumber",
+//       name: "Help Numbers",
+//     },
+//     {
+//       path: "/vendor",
+//       name: "Vendors",
+//     },
+//     {
+//       path: "/Training",
+//       name: "Training",
+      
+//     },
+//     {
+//       path: "/VendorSetting",
+//       name: "Vendor Settings",
+      
+//     },
+//     {
+//       path: "/report",
+//       name: "Reports",
+      
+//     },
+//     // Add other menu items here...
+//   ];
+
+//   // Define active tab CSS class
+//   const activeClassName = 'active';
+
+//   return (
+//     <div className="row">
+//       <div className="col-md-12">
+//         <div style={{ width: isOpen ? "180px" : "80px" }} className="sidebar">
+//           <div className="top_section">
+//             <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
+//               Vijay Home Services
+//             </h1>
+//           </div>
+//           {menuItem.map((item, index) => (
+//             <NavLink to={item.path} key={index} className="link">
+//               <div className="icon">{item.icon}</div>
+//               <div
+//                 style={{ display: isOpen ? "block" : "none" }}
+//                 className="link_text"
+//               >
+//                 {item.name}
+//               </div>
+//             </NavLink>
+//           ))}
+//         </div>
+//       </div>
+//       <div className="col-md-12">
+//         <main style={{ width: "-webkit-fill-available" }}>{children}</main>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Sidebar;

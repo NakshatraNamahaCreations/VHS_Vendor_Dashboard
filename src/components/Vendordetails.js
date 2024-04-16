@@ -7,19 +7,31 @@ import { Button, ButtonToolbar } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import DataTable from "react-data-table-component";
 import * as XLSX from "xlsx";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 function Vendordetails() {
+  const [amt, setamt] = useState("");
   const [show, setShow] = useState(false);
-  const [amt, setamt] = useState("")
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [show1, setShow1] = useState(false);
+
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);
   const { id } = useParams();
   const [data, setdata] = useState({});
   const [servicedata, setservicedata] = useState([]);
   const [totalRecords, setTotalRecords] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterdata, setfilterdata] = useState([]);
-  console.log("servicedata", servicedata)
+  const [desc, setdesc] = useState([]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -27,14 +39,15 @@ function Vendordetails() {
     const rowData = JSON.parse(rowDataString);
     setdata(rowData);
     // Use rowData in your component
-
   }, [id]);
 
-  console.log("id", id)
+  console.log("id", id);
   useEffect(() => {
     const getVendorServices = async () => {
       try {
-        const res = await axios.get(`https://api.vijayhomeservicebengaluru.in/api/getfindwithtechid/${id}`);
+        const res = await axios.get(
+          `https://api.vijayhomeservicebengaluru.in/api/getfindwithtechid/${id}`
+        );
         if (res.status === 200) {
           setservicedata(res.data?.techservicedata);
           setfilterdata(res.data?.techservicedata);
@@ -53,21 +66,20 @@ function Vendordetails() {
     };
   }, [id, setservicedata]);
 
-
   const updateRecharge = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
         `https://api.vijayhomesuperadmin.in/api/updatevendorAmt/${id}`,
-        { vendorAmt: amt },
+        { vendorAmt: amt, desc: desc },
         { headers: { "content-type": "application/json" } }
       );
 
       if (response.status === 200) {
         handleClose();
         alert("Successfully Added");
-        window.location.reload("/vendor");
+        window.location.assign("/vendor");
       }
     } catch (error) {
       console.log("Error response:", error.response);
@@ -81,27 +93,36 @@ function Vendordetails() {
     }
   };
 
-
   const [penaltydata, setvendorPenaltydata] = useState([]);
+  const [walletdata, setwalletdata] = useState([]);
 
   useEffect(() => {
     getpenality();
+    getwalletdetails();
   }, []);
 
   const getpenality = async () => {
-    let res = await axios.get(`https://api.vijayhomeservicebengaluru.in/api/getvPenalty/${id}`);
+    let res = await axios.get(
+      `https://api.vijayhomeservicebengaluru.in/api/getvPenalty/${id}`
+    );
     if (res.status === 200) {
       setvendorPenaltydata(res.data?.vPenalty);
     }
   };
 
-
+  const getwalletdetails = async () => {
+    let res = await axios.get(
+      `https://api.vijayhomesuperadmin.in/api/vendor/VendorwalletHistorybyid/${id}`
+    );
+    if (res.status === 200) {
+      console.log("res.data?.data", res.data?.data);
+      setwalletdata(res.data?.data);
+    }
+  };
 
   const totalPenalty = penaltydata.reduce((total, item) => {
     return total + parseInt(item?.vPenalty);
   }, 0);
-
-
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -157,10 +178,10 @@ function Vendordetails() {
       name: "Booked Date",
 
       cell: (row) => (
-
-
-        <div >{row.serviceInfo[0]?.date} <br />{row.serviceInfo[0]?.time}</div>
-
+        <div>
+          {row.serviceInfo[0]?.date} <br />
+          {row.serviceInfo[0]?.time}
+        </div>
       ),
     },
 
@@ -168,65 +189,62 @@ function Vendordetails() {
       name: "Before Img",
 
       cell: (row) => (
-
-
-        <div >
-          <img src={`https://api.vijayhomeservicebengaluru.in/addcall/${row?.bImg}`} width={100} height={100} />
+        <div>
+          <img
+            src={`https://api.vijayhomeservicebengaluru.in/addcall/${row?.bImg}`}
+            width={100}
+            height={100}
+          />
         </div>
-
       ),
     },
     {
       name: "After Img",
 
       cell: (row) => (
-
-
-        <div >
-          <img src={`https://api.vijayhomeservicebengaluru.in/addcall/${row?.sImg}`} width={100} height={100} />
+        <div>
+          <img
+            src={`https://api.vijayhomeservicebengaluru.in/addcall/${row?.sImg}`}
+            width={100}
+            height={100}
+          />
         </div>
-
       ),
     },
     {
       name: "payment Img",
 
       cell: (row) => (
-
-
-        <div >
-          <img src={`https://api.vijayhomeservicebengaluru.in/addcall/${row?.pImg}`} width={100} height={100} />
+        <div>
+          <img
+            src={`https://api.vijayhomeservicebengaluru.in/addcall/${row?.pImg}`}
+            width={100}
+            height={100}
+          />
         </div>
-
       ),
     },
     {
       name: "DS",
 
       cell: (row) => (
-
-
-        <div >
+        <div>
           <img src={row?.dsImg} width={100} height={100} />
         </div>
-
       ),
     },
     {
       name: "Service Date",
       selector: (row) => row.serviceDate,
     },
-
   ];
 
   const exportData = () => {
     const fileName = "Vendor_Report.xlsx";
-
     // Assuming each object in searchResults has properties like 'category' and 'img'
-    const filteredData1 = filterdata?.map(item => ({
+    const filteredData1 = filterdata?.map((item) => ({
       CustomerName: item.serviceInfo[0]?.customerData[0]?.customerName,
       category: item?.category,
-
       city: item?.serviceInfo[0]?.city,
       number: item?.serviceInfo[0]?.customerData[0]?.mainContact,
       desc: item?.serviceInfo[0]?.desc,
@@ -235,8 +253,7 @@ function Vendordetails() {
       BD: item.serviceInfo[0]?.date,
       SD: item.serviceDate,
       service: item?.serviceInfo[0]?.service,
-      paymentmode: (item?.serviceInfo[0]?.paymentMode),
-
+      paymentmode: item?.serviceInfo[0]?.paymentMode,
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(filteredData1);
@@ -297,7 +314,8 @@ function Vendordetails() {
                 </h5>
                 <div>
                   <b style={{ fontSize: "25px" }}>
-                    <i class="fa-solid fa-indian-rupee-sign"></i>{data?.vendorAmt}
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                    {data?.vendorAmt}
                   </b>
                 </div>
 
@@ -311,6 +329,17 @@ function Vendordetails() {
                 >
                   Recharge{" "}
                 </Button>
+                <p
+                  style={{
+                    textDecoration: "underline",
+                    marginLeft: "20px",
+                    color: "#198754",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleShow1}
+                >
+                  History
+                </p>
               </div>
             </div>
             <div className="mt-3">
@@ -328,14 +357,14 @@ function Vendordetails() {
             backgroundColor: "#a9042e",
             borderRadius: "5px",
             width: "150px",
-            float: "right"
+            float: "right",
           }}
           onClick={exportData}
         >
           <i
             class="fa-solid fa-download"
             title="Download"
-          // style={{ color: "white", fontSize: "27px" }}
+            // style={{ color: "white", fontSize: "27px" }}
           ></i>{" "}
           Export
         </button>
@@ -354,62 +383,26 @@ function Vendordetails() {
             highlightOnHover
           />
 
-<div style={{ fontWeight: "500" }}>Service Total-{filterdata?.reduce((total, selectedData) => total + parseFloat(selectedData?.serviceInfo[0]?.GrandTotal), 0)}</div>
-                                <div style={{ fontWeight: "500" }}>Vendor Total-{filterdata?.reduce((total, selectedData) => total + parseFloat(selectedData.vendorChargeAmount), 0).toFixed(1)}</div>
+          <div style={{ fontWeight: "500" }}>
+            Service Total-
+            {filterdata?.reduce(
+              (total, selectedData) =>
+                total + parseFloat(selectedData?.serviceInfo[0]?.GrandTotal),
+              0
+            )}
+          </div>
+          <div style={{ fontWeight: "500" }}>
+            Vendor Total-
+            {filterdata
+              ?.reduce(
+                (total, selectedData) =>
+                  total + parseFloat(selectedData.vendorChargeAmount),
+                0
+              )
+              .toFixed(1)}
+          </div>
         </div>
 
-        {/* <table className="table">
-          <thead className="table-light">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Customer Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">City</th>
-              <th scope="col">Contact</th>
-              <th scope="col">Service</th>
-              <th scope="col">SG</th>
-              <th scope="col">Vendor Charge</th>
-              <th scope="col">PM</th>
-              <th scope="col">Booked Date</th>
-              <th scope="col">Before Img</th>
-              <th scope="col">After Img</th>
-              <th scope="col">payment Img</th>
-              <th scope="col">Service Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              filterdata?.map((i, index) => (
-
-                <tr>
-                  <th scope="row">{index + 1}</th>
-                  <div> {i.serviceInfo[0]?.customerData[0]?.customerName} </td>
-                  <td> {i.serviceInfo[0]?.customerData[0]?.email} </td>
-                  <td>  {i.serviceInfo[0]?.city}</td>
-                  <td> {i.serviceInfo[0]?.customerData[0]?.mainContact}  </td>
-                  <td>{i.serviceInfo[0]?.service}  </td>
-                  <td>{i.serviceInfo[0]?.GrandTotal}  </td>
-                  <td> {i.vendorChargeAmount} </td>
-                  <td>{i.serviceInfo[0]?.paymentMode}  </td>
-                  <td>{i.serviceInfo[0]?.date} <br />{i.serviceInfo[0]?.time} </td>
-                  <td>  <div >
-                    <img src={`https://api.vijayhomeservicebengaluru.in/addcall/${i?.bImg}`} width={100} height={100} />
-                  </div> </td>
-                  <td>  <div >
-                    <img src={`https://api.vijayhomeservicebengaluru.in/addcall/${i?.sImg}`} width={100} height={100} />
-                  </div>
-                  </td>
-                  <td>   <div >
-                    <img src={`https://api.vijayhomeservicebengaluru.in/addcall/${i?.pImg}`} width={100} height={100} />
-                  </div></td>
-                  <td> {i.serviceDate} </td>
-
-                </tr>
-
-              ))
-            }
-          </tbody>
-        </table> */}
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Recharge to vendor wallet</Modal.Title>
@@ -429,6 +422,20 @@ function Vendordetails() {
                 borderLeft: "2px solid #a9042e",
               }}
             />
+            <input
+              type="text"
+              class="form-control mt-4"
+              placeholder="desc"
+              aria-label="Username"
+              onChange={(e) => setdesc(e.target.value)}
+              aria-describedby="basic-addon1"
+              style={{
+                width: "100%",
+
+                borderRadius: "3px",
+                borderLeft: "2px solid #a9042e",
+              }}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -438,6 +445,39 @@ function Vendordetails() {
               ADD
             </Button>
           </Modal.Footer>
+        </Modal>
+
+        <Modal show={show1} onHide={handleClose1}>
+          <Modal.Header closeButton>
+            <Modal.Title> {data?.vhsname} wallet transactions</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <TableContainer component={Paper}>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Sl.No</TableCell>
+                    <TableCell align="right">Amt</TableCell>
+                    <TableCell align="right">Desc</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {walletdata.map((row, index) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell align="right">{row.wAmt}</TableCell>
+                      <TableCell align="right">{row.desc}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Modal.Body>
         </Modal>
       </div>
     </div>

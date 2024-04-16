@@ -32,7 +32,7 @@ function OfferAnnouncement() {
     const postbanner = async (e) => {
         e.preventDefault();
 
-        if (!banner || !type) {
+        if (!banner ) {
             alert("Please select all fields")
         }
         else {
