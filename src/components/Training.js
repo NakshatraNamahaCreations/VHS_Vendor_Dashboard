@@ -5,10 +5,7 @@ import Header from "./Header";
 import DataTable from "react-data-table-component";
 import Modal from "react-bootstrap/Modal";
 
-
-
 function Subcategory() {
-
   const [data1, setdata1] = useState([]);
   const [category, setcategory] = useState("");
   const [header, setheader] = useState("");
@@ -26,8 +23,6 @@ function Subcategory() {
   const [editvideolink, seteditvideolink] = useState("");
   const [editTrainingvideo, seteditTrainingvideo] = useState({});
   const [desc, setdesc] = useState("");
-
-
 
   const formdata = new FormData();
 
@@ -47,7 +42,9 @@ function Subcategory() {
   }, []);
 
   const getcategory = async () => {
-    let res = await axios.get("https://api.vijayhomesuperadmin.in/api/getcategory");
+    let res = await axios.get(
+      "https://api.vijayhomesuperadmin.in/api/getcategory"
+    );
     if ((res.status = 200)) {
       setdata1(res.data?.category);
     }
@@ -64,7 +61,6 @@ function Subcategory() {
       formdata.append("desc", desc);
       formdata.append("trainingvideo", trainingvideo);
       formdata.append("videolink", videolink);
-
 
       try {
         const config = {
@@ -101,12 +97,11 @@ function Subcategory() {
     }
   };
 
-
-
   const getsubcategory = async () => {
-    let res = await axios.get("https://api.vijayhomesuperadmin.in/api/vendor/gettrainingCenter");
+    let res = await axios.get(
+      "https://api.vijayhomesuperadmin.in/api/vendor/gettrainingCenter"
+    );
     if ((res.status = 200)) {
-
       setsubcategorydata(res.data?.trainingCenter);
       setfilterdata(res.data?.trainingCenter);
     }
@@ -120,7 +115,6 @@ function Subcategory() {
       formdata.append("header", Editheader);
       formdata.append("desc", editdesc);
       formdata.append("videolink", editvideolink);
-
 
       if (EdittrainingVideo) {
         formdata.append("trainingVideo", EdittrainingVideo);
@@ -182,14 +176,13 @@ function Subcategory() {
           style={{
             // width: '100%',
             // height: '100%',
-            objectFit: 'cover', // or 'contain' depending on your preference
+            objectFit: "cover", // or 'contain' depending on your preference
           }}
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           allowFullScreen
         ></iframe>
       ),
     },
-
 
     {
       name: "Action",
@@ -220,7 +213,9 @@ function Subcategory() {
   const deleteservices = async (id) => {
     axios({
       method: "post",
-      url: "https://api.vijayhomesuperadmin.in/api/vendor/deletetrainingCenter/" + id,
+      url:
+        "https://api.vijayhomesuperadmin.in/api/vendor/deletetrainingCenter/" +
+        id,
     })
       .then(function (response) {
         //handle success
@@ -247,7 +242,6 @@ function Subcategory() {
           <div className="col-md-12">
             <div className="card" style={{ marginTop: "30px" }}>
               <div className="card-body p-3">
-
                 <form>
                   <div className="row">
                     <div className="col-md-4">
@@ -351,7 +345,6 @@ function Subcategory() {
           </div>
         </div>
 
-
         <Modal
           show={show}
           onHide={handleClose}
@@ -386,14 +379,13 @@ function Subcategory() {
                 </div>
                 <div className="col-md-12 mt-4">
                   <div className="vhs-input-label">
-                    Header  <span className="text-danger"> *</span>
+                    Header <span className="text-danger"> *</span>
                   </div>
                   <div className="group pt-1">
                     <input
                       type="text"
                       className="col-md-12 vhs-input-value"
                       onChange={(e) => setEditheader(e.target.value)}
-
                       defaultValue={
                         Editheader || editTrainingvideo
                           ? editTrainingvideo.header
@@ -403,17 +395,15 @@ function Subcategory() {
                   </div>
                 </div>
 
-
                 <div className="col-md-12 mt-4">
                   <div className="vhs-input-label">
-                    Desc  <span className="text-danger"> *</span>
+                    Desc <span className="text-danger"> *</span>
                   </div>
                   <div className="group pt-1">
                     <input
                       type="text"
                       className="col-md-12 vhs-input-value"
                       onChange={(e) => setEditdesc(e.target.value)}
-
                       defaultValue={
                         editdesc || editTrainingvideo
                           ? editTrainingvideo.desc
@@ -424,14 +414,13 @@ function Subcategory() {
                 </div>
                 <div className="col-md-12 mt-4">
                   <div className="vhs-input-label">
-                    videolink  <span className="text-danger"> *</span>
+                    videolink <span className="text-danger"> *</span>
                   </div>
                   <div className="group pt-1">
                     <input
                       type="text"
                       className="col-md-12 vhs-input-value"
                       onChange={(e) => seteditvideolink(e.target.value)}
-
                       defaultValue={
                         editvideolink || editTrainingvideo
                           ? editTrainingvideo.videolink
@@ -440,7 +429,6 @@ function Subcategory() {
                     />
                   </div>
                 </div>
-
 
                 <div className="row pt-3">
                   <div className="col-md-2">

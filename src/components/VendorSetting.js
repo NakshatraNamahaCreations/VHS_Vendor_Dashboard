@@ -26,7 +26,7 @@ function VendorSetting() {
   const handleShow = () => setShow(true);
 
   const [data, setdata] = useState({});
-
+  console.log("data", data);
   const [city1, setcity1] = useState(data.city);
   const [discount1, setdiscount1] = useState(data?.discount);
   const [category1, setcategory1] = useState(data?.category);
@@ -104,7 +104,6 @@ function VendorSetting() {
   };
 
   const handleToggle1 = (data) => {
-    setdata(data);
     setSelectedCatagory1(data?.category);
     editthedata(data);
   };
@@ -128,6 +127,33 @@ function VendorSetting() {
           discount: discount1,
           datewise: dateWise1,
           action: data?.action == true ? false : true,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (response.status === 200) {
+        alert("Successfully Edited");
+        window.location.reload("");
+      } else {
+        alert("Failed to edit category");
+      }
+    } catch (error) {
+      console.error("Error while editing data:", error);
+      // alert("An error occurred while editing category",error);
+    }
+  };
+
+  const editthedata1 = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `https://api.vijayhomeservicebengaluru.in/api/editAutomated/${data?._id}`,
+        {
+          category: category1 ? category1 : data?.category,
+          discount: discount1 ? discount1 : data?.discount,
+          datewise: dateWise1 ? dateWise1 : data?.datewise,
+          // action: data?.action == true ? false : true,
         },
         {
           headers: { "Content-Type": "application/json" },
@@ -483,10 +509,7 @@ function VendorSetting() {
 
                   <div className="row pt-3">
                     <div className="col-md-2">
-                      <button
-                        className="vhs-button"
-                        onClick={() => editthedata(data)}
-                      >
+                      <button className="vhs-button" onClick={editthedata1}>
                         Save
                       </button>
                     </div>

@@ -57,7 +57,7 @@ function ServiceBooking() {
       name: "City",
       selector: (row) => row.city,
     },
-   
+
     {
       name: "Contact",
       selector: (row) => row.customerData[0]?.mainContact,
@@ -79,10 +79,10 @@ function ServiceBooking() {
       name: "Booked Date",
       // selector: (row) => row.date,
       cell: (row) => (
-     
-         
-            <div >{row.date} <br />{row.time}</div>
-   
+        <div>
+          {row.date} <br />
+          {row.time}
+        </div>
       ),
     },
     {
@@ -101,7 +101,6 @@ function ServiceBooking() {
     },
   ];
 
-  
   return (
     <div className="row">
       <div className="col-md-2">

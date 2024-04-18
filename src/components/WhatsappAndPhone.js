@@ -5,7 +5,6 @@ import Header from "./Header";
 import DataTable from "react-data-table-component";
 import Modal from "react-bootstrap/Modal";
 
-
 function WhatsappAndPhone() {
   const [data1, setdata1] = useState([]);
   const [category, setCategory] = useState("");
@@ -15,7 +14,7 @@ function WhatsappAndPhone() {
   const [filterdata, setfilterData] = useState([]);
 
   const [numbersData, setNumbersData] = useState([]);
-  const [City, setCity] = useState("")
+  const [City, setCity] = useState("");
   const [editCategoryName, setEditCategoryName] = useState("");
   const [editWhatsAppNumber, setEditWhatsAppNumber] = useState("");
   const [editMobileNumber, setEditMobileNumber] = useState("");
@@ -38,22 +37,24 @@ function WhatsappAndPhone() {
     getcity();
   }, []);
 
-
   const getcity = async () => {
-    let res = await axios.get("https://api.vijayhomesuperadmin.in/api/master/getcity");
+    let res = await axios.get(
+      "https://api.vijayhomesuperadmin.in/api/master/getcity"
+    );
     if ((res.status = 200)) {
       setcitydata(res.data?.mastercity);
     }
   };
 
   const getcategory = async () => {
-    let res = await axios.get("https://api.vijayhomesuperadmin.in/api/getcategory");
+    let res = await axios.get(
+      "https://api.vijayhomesuperadmin.in/api/getcategory"
+    );
     if (res.status === 200) {
       setdata1(res.data?.category);
-
     }
   };
-  
+
   const addNumbers = async (e) => {
     e.preventDefault();
     try {
@@ -68,7 +69,7 @@ function WhatsappAndPhone() {
           numbersCategory: category,
           whatsappNumber: whatsAppNumber,
           phoneNumber: mobileNumber,
-          city: City
+          city: City,
         },
       };
       await axios(config).then(function (response) {
@@ -100,7 +101,6 @@ function WhatsappAndPhone() {
       setfilterData(res.data?.numbersData);
     }
   };
-
 
   const editNumbers = async (e) => {
     e.preventDefault();
@@ -236,7 +236,6 @@ function WhatsappAndPhone() {
                         </select>
                       </div>
                     </div>
-
 
                     <div className="col-md-3">
                       <div className="vhs-input-label">Whatsapp Number</div>

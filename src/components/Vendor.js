@@ -515,6 +515,7 @@ function Vendor() {
                             <div className="group pt-1">
                               <input
                                 type="number"
+                                placeholder="10km"
                                 className="col-md-12 vhs-input-value"
                                 onChange={(e) => setRadius(e.target.value)}
                               />

@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import {
-  ProSidebar, Menu,
-  MenuItem,
-  SubMenu,
-} from 'react-pro-sidebar';
+import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 
 import "react-pro-sidebar/dist/css/styles.css";
 import { Link } from "react-router-dom";
@@ -13,7 +9,7 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
 function Sidenav() {
-  const admin = JSON.parse(localStorage.getItem("admin"));
+  const admin = JSON.parse(localStorage.getItem("admin1"));
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -48,7 +44,6 @@ function Sidenav() {
     <div>
       <ProSidebar>
         <div className="row justify-content-center mt-2">
-       
           <h6
             className="text-center pt-1"
             style={{ color: "black", fontWeight: "bold", fontSize: "21px" }}
@@ -61,7 +56,7 @@ function Sidenav() {
             Dashboard <Link to="/home" />
           </MenuItem>
 
-          <SubMenu title="Banners"> 
+          <SubMenu title="Banners">
             <MenuItem>
               offerAnnouncement
               <Link to="/offerAnnouncement" />
@@ -72,27 +67,27 @@ function Sidenav() {
             <Link to="/ServiceBooking" />
           </MenuItem>
           <MenuItem>
-           Enquiry
+            Enquiry
             <Link to="/enquiry" />
           </MenuItem>
           <MenuItem>
-           Help Numbers
+            Help Numbers
             <Link to="/whatsappandphonenumber" />
           </MenuItem>
-            <MenuItem>
-              Vendors  <Link to="/vendor" />
-            </MenuItem>
-            <MenuItem>
-              Training  <Link to="/Training" />
-            </MenuItem>
-            <MenuItem>
-              Vendor Settings  <Link to="/VendorSetting" />
-            </MenuItem>
-      
-            <MenuItem>
-              Reports  <Link to="/report" />
-            </MenuItem>
-      
+          <MenuItem>
+            Vendors <Link to="/vendor" />
+          </MenuItem>
+          <MenuItem>
+            Training <Link to="/Training" />
+          </MenuItem>
+          <MenuItem>
+            Vendor Settings <Link to="/VendorSetting" />
+          </MenuItem>
+
+          <MenuItem>
+            Reports <Link to="/report" />
+          </MenuItem>
+
           <MenuItem>
             <a onClick={handleShow}> Logout </a>
           </MenuItem>
@@ -163,17 +158,17 @@ export default Sidenav;
 //     {
 //       path: "/Training",
 //       name: "Training",
-      
+
 //     },
 //     {
 //       path: "/VendorSetting",
 //       name: "Vendor Settings",
-      
+
 //     },
 //     {
 //       path: "/report",
 //       name: "Reports",
-      
+
 //     },
 //     // Add other menu items here...
 //   ];

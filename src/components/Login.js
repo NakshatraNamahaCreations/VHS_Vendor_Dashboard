@@ -18,7 +18,7 @@ function Login() {
     e.preventDefault();
     try {
       const config = {
-        url: "/super/loginSuperAdmin",
+        url: "/super/loginSuperadmin",
         method: "post",
         baseURL: "https://api.vijayhomesuperadmin.in/api",
         headers: { "content-type": "application/json" },
@@ -36,7 +36,7 @@ function Login() {
             progress: undefined,
             theme: "light",
           });
-          localStorage.setItem("admin", JSON.stringify(response.data.user));
+          localStorage.setItem("admin1", JSON.stringify(response.data.user));
 
           window.location.assign("/home");
         } else {
@@ -75,7 +75,7 @@ function Login() {
                   textAlign: "center",
                 }}
               >
-            Vendor Dashboard
+                Vendor Dashboard
               </h1>
               <Card
                 style={{
