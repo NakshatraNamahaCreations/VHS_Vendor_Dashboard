@@ -1,0 +1,107 @@
+.row-0-1-792 {
+  display: flex;
+  margin-top: 15px;
+  padding-right: 20px;
+  padding-bottom: 150px;
+  justify-content: flex-start;
+}
+@media screen and (max-width: 1440px) {
+  .box-0-1-793 {
+    width: 32%;
+    border: 1px dashed #bac8e3;
+    height: 70vh;
+    border-radius: 24px;
+    background-color: white;
+  }
+}
+.box-0-1-793 {
+  width: 32%;
+  border: 1px dashed #bac8e3;
+  height: 75vh;
+  position: relative;
+  margin-right: 1.25rem;
+  border-radius: 24px;
+  background-color: white;
+}
+.boxColor-0-1-58 {
+  height: 75%;
+  margin: 10px;
+  display: flex;
+  position: relative;
+  border-radius: 24px;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f4f9fd;
+}
+@media screen and (max-width: 1440px) {
+  .boxText-0-1-61 {
+    top: 10%;
+    margin: 0;
+  }
+}
+
+.boxText-0-1-61 {
+  /* top: 20%; */
+  color: #0a1629;
+  width: 100%;
+  cursor: default;
+  padding: 17px 37px;
+  /* position: absolute; */
+  font-size: 24px;
+  font-style: normal;
+  text-align: center;
+  font-weight: 700;
+  line-height: 33px;
+}
+@media screen and (max-width: 1440px) {
+  .lists-0-1-57 {
+    top: 30%;
+    height: 60px;
+    padding: 0 32px;
+    position: absolute;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+.list-0-1-59 {
+  color: #7d8592;
+  cursor: default;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}
+@media screen and (max-width: 1440px) {
+  .btnContainer-0-1-62 {
+    height: 20%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+.buttonFontStyling-0-1-65 {
+  color: #ffffff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+}
+.button-0-1-118 {
+  color: rgb(255, 255, 255);
+  border: 1px solid transparent;
+  display: inline-flex;
+  padding: 12px 20px;
+  font-size: 16px;
+  transition: transform 0.2s ease 0s;
+  align-items: center;
+  font-weight: 600;
+  line-height: 24px;
+  border-radius: 16px;
+  justify-content: center;
+  background-color: rgb(0, 173, 231);
+}
+.lists-0-1-794 {
+  padding: 0px 30px;
+}

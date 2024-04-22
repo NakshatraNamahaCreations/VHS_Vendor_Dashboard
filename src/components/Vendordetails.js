@@ -41,7 +41,6 @@ function Vendordetails() {
     // Use rowData in your component
   }, [id]);
 
-  console.log("id", id);
   useEffect(() => {
     const getVendorServices = async () => {
       try {
@@ -115,7 +114,7 @@ function Vendordetails() {
       `https://api.vijayhomesuperadmin.in/api/vendor/VendorwalletHistorybyid/${id}`
     );
     if (res.status === 200) {
-      console.log("res.data?.data", res.data?.data);
+      // console.log("res.data?.data", res.data?.data);
       setwalletdata(res.data?.data);
     }
   };

@@ -18,6 +18,9 @@ import Report from "./components/Report";
 import ReportList from "./components/ReportList";
 import Enquiry from "./components/Enquiry";
 import WhatsappAndPhone from "./components/WhatsappAndPhone";
+import Campaign from "./components/Notification/Campaign";
+import CreateCampaign from "./components/Notification/CreateCampaign";
+import UserAction from "./components/Notification/UserAction";
 
 function App() {
   const admin1 = localStorage.getItem("admin1");
@@ -36,6 +39,14 @@ function App() {
           <Route path="/Training" element={<Training />} />
           <Route path="/VendorSetting" element={<VendorSetting />} />
           <Route path="/reportlist/:date/:category" element={<ReportList />} />
+          <Route path="/notification" element={<Campaign />} />
+
+          <Route path="/campaigns/create" element={<CreateCampaign />} />
+
+          <Route
+            path="/campaigns/create/useractioncampaign/channel"
+            element={<UserAction />}
+          />
 
           <Route path="/report" element={<Report />} />
           <Route path="/offerAnnouncement" element={<OfferAnnouncement />} />

@@ -33,7 +33,7 @@ function Vendor() {
   const [experiance, setexperiance] = useState("");
   const [language, setlanguagesknow] = useState("");
   const [Type, setType] = useState("");
-  const [data, setdata] = useState([]);
+  const [data, setdata] = useState({});
 
   const [city1, setcity1] = useState(data.city);
   const [category1, setcategory1] = useState(data.category);
@@ -47,6 +47,10 @@ function Vendor() {
   const [selectedCatagory, setSelectedCatagory] = useState(
     data?.category || []
   );
+  const [selectedCatagory1, setSelectedCatagory1] = useState(
+    data?.category || []
+  );
+
   const [techniciandata, settechniciandata] = useState([]);
   const [citydata, setcitydata] = useState([]);
   const [categorydata, setcategorydata] = useState([]);
@@ -75,7 +79,8 @@ function Vendor() {
       !number ||
       !password ||
       !experiance ||
-      !language
+      !language ||
+      !Radius
     ) {
       alert("Please fill all fields");
     } else {
@@ -240,6 +245,7 @@ function Vendor() {
   ];
   const edit = (data) => {
     setdata(data);
+    setSelectedCatagory1(data.category);
     handleShow(true);
   };
   useEffect(() => {
@@ -259,7 +265,7 @@ function Vendor() {
         headers: { "content-type": "application/json" },
         data: {
           Type: Type1,
-          category: category1,
+          category: selectedCatagory1,
           vhsname: vh,
           smsname: smsname1,
           number: number1,
@@ -286,8 +292,6 @@ function Vendor() {
   const onSelectCatagory = (selectedList, selectedItem) => {
     // Handle select event
     setSelectedCatagory(selectedList);
-    console.log(selectedList);
-    console.log(selectedItem);
   };
 
   const onRemoveCatagory = (selectedList, removedItem) => {
@@ -297,6 +301,10 @@ function Vendor() {
     console.log(removedItem);
   };
 
+  const onEditCatagory = (selectedList, selectedItem) => {
+    // Handle select event
+    setSelectedCatagory1(selectedList);
+  };
   // const handleRowClick = (row) => {
   //   navigate(`/vendordetails/${row}`);
   // };
@@ -522,9 +530,7 @@ function Vendor() {
                             </div>
                           </div>
                           <div className="col-md-4">
-                            <div className="vhs-input-label">
-                              Area <span className="text-danger"> *</span>
-                            </div>
+                            <div className="vhs-input-label">Area</div>
                             <div className="group pt-1">
                               <input
                                 type="text"
@@ -534,9 +540,7 @@ function Vendor() {
                             </div>
                           </div>
                           <div className="col-md-4">
-                            <div className="vhs-input-label">
-                              Pincode <span className="text-danger"> *</span>
-                            </div>
+                            <div className="vhs-input-label">Pincode</div>
                             <div className="group pt-1">
                               <input
                                 type="number"
@@ -573,6 +577,7 @@ function Vendor() {
           )}
         </div>
       </div>
+
       <Modal
         show={show}
         onHide={handleClose}
@@ -580,7 +585,7 @@ function Vendor() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Technician</Modal.Title>
+          <Modal.Title>Edit Technician</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="card" style={{ marginTop: "30px" }}>
@@ -595,8 +600,9 @@ function Vendor() {
                       <select
                         className="col-md-12 vhs-input-value"
                         onChange={(e) => setType1(e.target.value)}
+                        defaultValue={data?.Type}
                       >
-                        <option value="outVendor">Vendor</option>
+                        <option value="Vendor">Vendor</option>
                       </select>
                     </div>
                   </div>
@@ -615,6 +621,20 @@ function Vendor() {
                         ))}
                       </select>
                     </div>
+                  </div>
+                  <div className="col-md-4">
+                    <Multiselect
+                      className="mt-3"
+                      options={categorydata.map((category) => ({
+                        name: category.category,
+                        // id: category._id,
+                      }))}
+                      selectedValues={selectedCatagory1}
+                      onSelect={onEditCatagory}
+                      onRemove={onRemoveCatagory}
+                      displayValue="name"
+                      showCheckbox={true}
+                    />
                   </div>
                 </div>
 
@@ -724,6 +744,12 @@ function Vendor() {
             </div>
           </div>
         </Modal.Body>
+        {/* <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary">Understood</Button>
+        </Modal.Footer> */}
       </Modal>
     </div>
   );

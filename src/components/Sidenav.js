@@ -83,7 +83,9 @@ function Sidenav() {
           <MenuItem>
             Vendor Settings <Link to="/VendorSetting" />
           </MenuItem>
-
+          <MenuItem>
+            Notification <Link to="/notification" />
+          </MenuItem>
           <MenuItem>
             Reports <Link to="/report" />
           </MenuItem>

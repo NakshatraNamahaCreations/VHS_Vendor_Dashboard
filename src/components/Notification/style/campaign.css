@@ -1,0 +1,20 @@
+.TableHeaderContainer-0-1-672 {
+  margin: 10px 0;
+}
+.ui.table thead th {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 700;
+}
+.fpBGKh {
+  border-radius: 35px !important;
+}
+.huezRP {
+  padding: 11px;
+}
+.mHisf {
+  border-bottom-style: dashed !important;
+}
+.kUMlDB:not(:last-of-type) {
+  border-bottom-style: dashed !important;
+  padding: 18px 0px !important;
+}
