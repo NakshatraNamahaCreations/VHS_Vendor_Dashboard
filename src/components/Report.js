@@ -125,7 +125,7 @@ function DSRcategory() {
   }, {});
 
   const myEventsList = Object.keys(eventCounts).map((date) => ({
-    title: `${eventCounts[date]} DSR`,
+    title: `${eventCounts[date]} Report`,
     start: new Date(date),
     end: new Date(date),
     count: eventCounts[date],

@@ -5,14 +5,19 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
+import moment from "moment";
 
 function Login() {
   const [emailOrName, setEmailOrName] = useState("");
   const [password, setpassword] = useState("");
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const apiURL = process.env.REACT_APP_API_URL;
+  const date1 = moment("01-02-2020", "DD-MM-YYYY").valueOf();
+  const date2 = moment("01-03-2020", "DD-MM-YYYY").valueOf();
+
+  if (date1 >= date2) {
+    console.log("date1 is greater...");
+  } else {
+    console.log("date2 is greater...");
+  }
 
   const Login = async (e) => {
     e.preventDefault();

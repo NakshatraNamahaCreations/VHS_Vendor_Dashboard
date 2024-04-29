@@ -50,7 +50,9 @@ function Vendor() {
   const [selectedCatagory1, setSelectedCatagory1] = useState(
     data?.category || []
   );
-
+  const [Radius1, setRadius1] = useState(data.Radius);
+  const [Area1, setArea1] = useState(data.Area);
+  const [Pincode1, setPincode1] = useState(data.Pincode);
   const [techniciandata, settechniciandata] = useState([]);
   const [citydata, setcitydata] = useState([]);
   const [categorydata, setcategorydata] = useState([]);
@@ -273,8 +275,9 @@ function Vendor() {
           experiance: experiance1,
           languagesknow: language1,
           city: city1,
-          Area: Area,
-          Pincode: Pincode,
+          Area: Area1,
+          Pincode: Pincode1,
+          Radius: Radius1,
         },
       };
       await axios(config).then(function (response) {
@@ -726,12 +729,49 @@ function Vendor() {
                   <div className="col-md-4"></div>
                 </div>
 
-                <div className="row pt-2">
+                <div className="row pt-3 mt-3">
+                  <div className="col-md-4 ">
+                    <div className="vhs-input-label">
+                      Radius <span className="text-danger"> *</span>
+                    </div>
+                    <div className="group pt-1">
+                      <input
+                        type="number"
+                        defaultValue={data?.Radius}
+                        className="col-md-12 vhs-input-value"
+                        onChange={(e) => setRadius1(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="vhs-input-label">Area</div>
+                    <div className="group pt-1">
+                      <input
+                        type="text"
+                        defaultValue={data?.Area}
+                        className="col-md-12 vhs-input-value"
+                        onChange={(e) => setArea1(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="vhs-input-label">Pincode</div>
+                    <div className="group pt-1">
+                      <input
+                        type="number"
+                        defaultValue={data?.Pincode}
+                        className="col-md-12 vhs-input-value"
+                        onChange={(e) => setPincode1(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+                {/* <div className="row pt-2">
                   <div className="vhs-sub-heading">
                     Note: One Mobile Number Will Register Only Once For
                     Technician
                   </div>
-                </div>
+                </div> */}
 
                 <div className="row pt-3">
                   <div className="col-md-2">
