@@ -32,7 +32,7 @@ function Vendordetails() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterdata, setfilterdata] = useState([]);
   const [desc, setdesc] = useState([]);
-
+  console.log("filterdata", filterdata);
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const rowDataString = urlParams.get("rowData");
@@ -165,7 +165,8 @@ function Vendordetails() {
     {
       name: "Vendor Charge",
       selector: (row) => {
-        const vendorChargeAmount = parseFloat(row.vendorChargeAmount);
+        const vendorChargeAmount = parseFloat(row.vendorChargeAmount ?? 0);
+
         return vendorChargeAmount.toFixed(1);
       },
     },
@@ -383,7 +384,7 @@ function Vendordetails() {
           />
 
           <div style={{ fontWeight: "500" }}>
-            Service Total-
+            Service Total :
             {filterdata?.reduce(
               (total, selectedData) =>
                 total + parseFloat(selectedData?.serviceInfo[0]?.GrandTotal),
@@ -391,13 +392,14 @@ function Vendordetails() {
             )}
           </div>
           <div style={{ fontWeight: "500" }}>
-            Vendor Total-
+            Vendor Total :
             {filterdata
               ?.reduce(
                 (total, selectedData) =>
-                  total + parseFloat(selectedData.vendorChargeAmount),
+                  total + parseFloat(selectedData?.vendorChargeAmount ?? 0),
                 0
               )
+
               .toFixed(1)}
           </div>
         </div>
@@ -408,19 +410,26 @@ function Vendordetails() {
           </Modal.Header>
           <Modal.Body>
             <input
-              type="number"
+              type="text"
               class="form-control mt-4"
               placeholder="100"
-              aria-label="Username"
+              aria-label="Amount"
               onChange={(e) => setamt(e.target.value)}
               aria-describedby="basic-addon1"
+              onKeyPress={(e) => {
+                // Allow only numbers (0-9)
+                const isValidInput = /[0-9]/.test(e.key);
+                if (!isValidInput) {
+                  e.preventDefault();
+                }
+              }}
               style={{
                 width: "100%",
-
                 borderRadius: "3px",
                 borderLeft: "2px solid #a9042e",
               }}
             />
+
             <input
               type="text"
               class="form-control mt-4"
