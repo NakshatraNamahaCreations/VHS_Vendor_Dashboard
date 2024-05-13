@@ -244,6 +244,29 @@ function Vendor() {
         </div>
       ),
     },
+    {
+      name: "Status",
+      cell: (row) => (
+        <div>
+          {row?.block ? (
+            <p
+              onClick={() => unblockvendor(row._id)}
+              style={{
+                color: "white",
+                background: "red",
+                padding: 5,
+              }}
+            >
+              Blocked
+            </p>
+          ) : (
+            <a onClick={() => blockvendor(row._id)} className="hyperlink mx-1">
+              Block
+            </a>
+          )}
+        </div>
+      ),
+    },
   ];
   const edit = (data) => {
     setdata(data);
@@ -289,6 +312,73 @@ function Vendor() {
     } catch (error) {
       console.error(error);
       alert("category  Not Added");
+    }
+  };
+
+  const blockvendor = async (data) => {
+    console.log("data", data);
+
+    // Prompt the user with a confirmation dialog
+    const confirmed = window.confirm(
+      "Are you sure you want to block this user?"
+    );
+
+    if (confirmed) {
+      try {
+        const config = {
+          url: `/vendorstatusupdate/${data}`,
+          method: "put",
+          baseURL: "https://api.vijayhomesuperadmin.in/api",
+          headers: { "content-type": "application/json" },
+          data: {
+            block: true,
+          },
+        };
+        await axios(config).then(function (response) {
+          if (response.status === 200) {
+            alert("Successfully Added");
+            window.location.reload("");
+          }
+        });
+      } catch (error) {
+        console.error(error);
+        alert("Not Added");
+      }
+    } else {
+      // Do nothing if the user cancels the confirmation
+    }
+  };
+  const unblockvendor = async (data) => {
+    console.log("data", data);
+
+    // Prompt the user with a confirmation dialog
+    const confirmed = window.confirm(
+      "Are you sure you want to unblock this user?"
+    );
+
+    if (confirmed) {
+      try {
+        const config = {
+          url: `/vendorstatusupdate/${data}`,
+          method: "put",
+          baseURL: "https://api.vijayhomesuperadmin.in/api",
+          headers: { "content-type": "application/json" },
+          data: {
+            block: false,
+          },
+        };
+        await axios(config).then(function (response) {
+          if (response.status === 200) {
+            alert("Successfully Added");
+            window.location.reload("");
+          }
+        });
+      } catch (error) {
+        console.error(error);
+        alert("Not Added");
+      }
+    } else {
+      // Do nothing if the user cancels the confirmation
     }
   };
 
