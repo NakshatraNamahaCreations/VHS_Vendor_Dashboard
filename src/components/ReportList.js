@@ -327,7 +327,7 @@ function ReportList() {
                 <th>DS</th>
                 <th>Job Amount</th>
                 <th>Vendor Charge</th>
-                <th>Payment mode</th>
+                {/* <th>Payment mode</th> */}
 
                 <th>Description</th>
               </tr>
@@ -403,7 +403,7 @@ ${selectedData?.serviceInfo[0]?.deliveryAddress?.landmark}
                     {parseFloat(selectedData.vendorChargeAmount).toFixed(1)}
                   </td>
 
-                  <td>{selectedData?.serviceInfo[0]?.paymentMode}</td>
+                  {/* <td>{selectedData?.paymentMode}</td> */}
                   <td>{selectedData?.serviceInfo[0]?.desc}</td>
                 </tr>
               ))}

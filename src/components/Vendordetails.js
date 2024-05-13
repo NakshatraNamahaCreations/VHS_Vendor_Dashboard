@@ -95,6 +95,27 @@ function Vendordetails() {
   const [penaltydata, setvendorPenaltydata] = useState([]);
   const [walletdata, setwalletdata] = useState([]);
 
+  const [vDocumnets, setvDocumnets] = useState([]);
+
+  useEffect(() => {
+    getdocuments();
+  }, [id]);
+
+  const getdocuments = async () => {
+    try {
+      const response = await axios.post(
+        `https://api.vijayhomeservicebengaluru.in/api/vendor/findwithvendorId/${id}`
+      );
+
+      if (response.status === 200) {
+        setvDocumnets(response.data?.vdocuments);
+      }
+    } catch (error) {
+      console.error("Error fetching documents:", error);
+      // Handle the error appropriately (e.g., show a user-friendly message).
+    }
+  };
+
   useEffect(() => {
     getpenality();
     getwalletdetails();
@@ -274,7 +295,7 @@ function Vendordetails() {
           <h5 style={{ color: "#a33535" }}>Vendor Details</h5>
         </div>
         <div className="row">
-          <div className="col-6">
+          <div className="col-4">
             <img
               src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
               className="img"
@@ -300,7 +321,16 @@ function Vendordetails() {
               <b>{data?.password}</b>
             </p>
           </div>
-          <div className="mt-5 col-6">
+          <div className="col-4">
+            <h5 style={{ color: "#a33535" }}>Documents</h5>
+            <p>Id : {vDocumnets[0]?.IDProofNo}</p>
+            <img
+              src={`https://api.vijayhomeservicebengaluru.in/vDocuments/${vDocumnets[0]?.IDproofImg}`}
+              width="200px"
+              height="200px"
+            />
+          </div>
+          <div className="mt-5 col-4">
             <div className="wallet">
               <div>
                 <i

@@ -62,10 +62,7 @@ function Sidenav() {
               <Link to="/offerAnnouncement" />
             </MenuItem>
           </SubMenu>
-          <MenuItem>
-            Services Booking
-            <Link to="/ServiceBooking" />
-          </MenuItem>
+
           <MenuItem>
             Enquiry
             <Link to="/enquiry" />
