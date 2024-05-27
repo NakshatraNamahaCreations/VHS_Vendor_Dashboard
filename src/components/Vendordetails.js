@@ -14,6 +14,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import moment from "moment";
 
 function Vendordetails() {
   const [amt, setamt] = useState("");
@@ -395,7 +396,7 @@ function Vendordetails() {
             class="fa-solid fa-download"
             title="Download"
             // style={{ color: "white", fontSize: "27px" }}
-          ></i>{" "}
+          ></i>
           Export
         </button>
         <div className="mt-1 border">
@@ -495,6 +496,7 @@ function Vendordetails() {
                 <TableHead>
                   <TableRow>
                     <TableCell>Sl.No</TableCell>
+                    <TableCell>Date</TableCell>
                     <TableCell align="right">Amt</TableCell>
                     <TableCell align="right">Desc</TableCell>
                   </TableRow>
@@ -507,6 +509,9 @@ function Vendordetails() {
                     >
                       <TableCell component="th" scope="row">
                         {index + 1}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {moment(row.createdAt).format("DD-MM-YYYY")}
                       </TableCell>
                       <TableCell align="right">{row.wAmt}</TableCell>
                       <TableCell align="right">{row.desc}</TableCell>

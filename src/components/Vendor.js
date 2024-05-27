@@ -9,6 +9,8 @@ import DataTable from "react-data-table-component";
 import Multiselect from "multiselect-react-dropdown";
 import Sidenav from "./Sidenav";
 import Header from "./Header";
+import * as XLSX from "xlsx";
+
 const active = {
   backgroundColor: "rgb(169, 4, 46)",
   color: "#fff",
@@ -316,8 +318,6 @@ function Vendor() {
   };
 
   const blockvendor = async (data) => {
-    console.log("data", data);
-
     // Prompt the user with a confirmation dialog
     const confirmed = window.confirm(
       "Are you sure you want to block this user?"
@@ -349,8 +349,6 @@ function Vendor() {
     }
   };
   const unblockvendor = async (data) => {
-    console.log("data", data);
-
     // Prompt the user with a confirmation dialog
     const confirmed = window.confirm(
       "Are you sure you want to unblock this user?"
@@ -407,6 +405,27 @@ function Vendor() {
     }).toString();
     const newTab = window.open(`/vendordetails/${row._id}?${queryString}`);
   };
+
+  const exportData = () => {
+    const fileName = "Vendors.xlsx";
+    // Assuming each object in searchResults has properties like 'category' and 'img'
+    const filteredData1 = filterdata?.map((item) => ({
+      VHSName: item.vhsname,
+      SMSName: item?.smsname,
+      city: item?.city,
+      number: item?.number,
+      category: item?.category[0]?.name,
+      Pincode: item?.Pincode,
+      WalletBalance: item.vendorAmt,
+      Radius: item.Radius,
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(filteredData1);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, " Data");
+    XLSX.writeFile(workbook, fileName);
+  };
+
   return (
     <div div className="row">
       <div className="col-md-2">
@@ -447,6 +466,25 @@ function Vendor() {
                 />
               </div>
               <div className="mt-1 border">
+                <button
+                  className="ps-3 pt-2 pb-2 pe-3 ms-2"
+                  style={{
+                    border: 0,
+                    color: "white",
+                    backgroundColor: "#a9042e",
+                    borderRadius: "5px",
+                    width: "150px",
+                    float: "right",
+                  }}
+                  onClick={exportData}
+                >
+                  <i
+                    class="fa-solid fa-download"
+                    title="Download"
+                    // style={{ color: "white", fontSize: "27px" }}
+                  ></i>
+                  Export
+                </button>
                 <DataTable
                   columns={columns}
                   data={filterdata}
@@ -541,7 +579,9 @@ function Vendor() {
                             <div className="group pt-1">
                               <input
                                 type="text"
+                                maxLength="10"
                                 className="col-md-12 vhs-input-value"
+                                pattern="[0-9]{10}" // Pattern to accept only 10-digit numbers
                                 onChange={(e) => setnumber(e.target.value)}
                               />
                             </div>
